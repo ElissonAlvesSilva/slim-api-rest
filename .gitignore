@@ -1,3 +1,4 @@
 /vendor
 *.sql
 .DS_Store
+*.env

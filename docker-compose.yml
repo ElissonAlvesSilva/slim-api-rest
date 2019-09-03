@@ -24,7 +24,7 @@ services:
       - PHP_FPM_SERVER_PORT=9000
       - PHP_FPM_TIMEOUT=${HTTPD_TIMEOUT_TO_PHP_FPM:-180}
       - DB_HOSTNAME=mysql
-      - DB_DATABASE=siscad
+      - DB_DATABASE=sintj278_jmln2
       - DB_USERNAME=root
       - DB_PASSWORD=
 
@@ -34,7 +34,7 @@ services:
   mysql:
     build: ./docker/mysql
     ports:
-      - 33060:3306
+      - 3306:3306
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
       MYSQL_DATABASE: sintj278_jmln2

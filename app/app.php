@@ -2,26 +2,15 @@
 
 require __DIR__ . '../../vendor/autoload.php';
 
-$settings = require 'config/application.php';
+$settings = require 'config/settings.php';
 
-$baseDir = __DIR__ . '/';
+$baseDir = __DIR__ . '../';
 $envFile = $baseDir . '.env';
 if (file_exists($envFile)) {
     $dotenv = Dotenv\Dotenv::create($baseDir);
     $dotenv->load();
 }
 
-// Contruct League container.
-$container = new \League\Container\Container;
-$container->delegate(new \Slim\Container($settings));
-
-// Enable auto wiring.
-$container->delegate(
-    new \League\Container\ReflectionContainer
-);
-
-$app = new \Slim\App($container);
-$container = $app->getContainer();
-
-require __DIR__ . '/dependencies/dependencies.php';
-require __DIR__ . '/routes/routes.php';
+require 'initializer.php';
+require 'controllers.php';
+require __DIR__ . '/routes/web.php';
