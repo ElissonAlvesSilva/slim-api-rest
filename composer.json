@@ -6,7 +6,8 @@
         "illuminate/events": "^5.8",
         "illuminate/database": "^5.8",
         "monolog/monolog": "^1.24",
-        "respect/validation": "^1.1"
+        "respect/validation": "^1.1",
+        "davidepastore/slim-validation": "^0.5.1"
     },
     "autoload": {
         "psr-4": {
