@@ -13,4 +13,15 @@ $app->group('/siscad/v1', function () use ($app, $namespace) {
     $app->post('/upload', $namespace.'\SindicalizadosController:upload');
     $app->put('/[{idSindicalizado}]', $namespace.'\SindicalizadosController:update');
   });
+
+  $app->group('/classes', function () use ($app, $namespace) {
+    require __DIR__ . '/../validators/classe.php';
+
+    $app->get('', $namespace.'\ClassesController:getAll');
+    $app->get('/[{idClasse}]', $namespace.'\ClassesController:getById');
+    $app->post('', $namespace.'\ClassesController:create')->add(new \DavidePastore\Slim\Validation\Validation($classe));
+    $app->put('/[{idClasse}]', $namespace.'\ClassesController:update')->add(new \DavidePastore\Slim\Validation\Validation($classe));
+    $app->delete('/[{idClasse}]', $namespace.'\ClassesController:delete');
+  });
+
 });

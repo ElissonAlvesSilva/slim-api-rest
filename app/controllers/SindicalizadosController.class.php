@@ -5,11 +5,11 @@ namespace App\Controllers;
 use App\Models\Sindicalizado;
 use App\Controllers\BaseController;
 use App\Models\Anexo;
+use App\Models\Classe;
 
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Slim\Http\UploadedFile;
-use stdClass;
 
 class SindicalizadosController extends BaseController
 {
@@ -23,6 +23,17 @@ class SindicalizadosController extends BaseController
   {
     $all =  Sindicalizado::all();
     return $response->getBody()->write($all->toJson());
+  }
+
+  public function getById($request, $response, array $args)
+  {
+    $this->setParams($request, $response, $args);
+    try {
+      $sind = Sindicalizado::where('idSindicalizado', $this->args['idSindicalizado'])->firstOrFail();
+      return $this->jsonResponse($sind, http_response_code());
+    } catch (ModelNotFoundException $e) {
+      return $this->jsonResponse($e, 400);
+    }
   }
 
   public function create($request, $response, array $args)
@@ -57,17 +68,6 @@ class SindicalizadosController extends BaseController
                       ->update($input);
       return $this->jsonResponse($sindicalizado, http_response_code());
     } catch (\Exception $e) {
-      return $this->jsonResponse($e, 400);
-    }
-  }
-
-  public function getById($request, $response, array $args)
-  {
-    $this->setParams($request, $response, $args);
-    try {
-      $sind = Sindicalizado::where('idSindicalizado', $this->args['idSindicalizado'])->firstOrFail();
-      return $this->jsonResponse($sind, http_response_code());
-    } catch (ModelNotFoundException $e) {
       return $this->jsonResponse($e, 400);
     }
   }
@@ -138,5 +138,52 @@ class SindicalizadosController extends BaseController
     }
 
     return $category;
+  }
+
+  private function makeClass($input) {
+    $id = $input['Classe_idClasse'];
+
+    try {
+      $class = Classe::where('idClasse', $id)->firstOrFail();
+      return $class->Descricao;
+    } catch (ModelNotFoundException $e) {
+      throw new Exception('Not found class');
+    }
+  }
+
+  private function makePayment($input) {
+    $payment = '';
+    switch ($input['Forma_Pagamento']) {
+      case 1:
+        $payment = 'Desconto em Contracheque';
+        break;
+      case 2:
+        $payment = 'Em Espécie';
+        break;
+        $payment = 'Outros';
+        break;
+    }
+
+    return $payment;
+  }
+
+  private function makePlace($input) {
+    $place = '';
+    switch ($input['Local']) {
+      case 1:
+        $place = 'Capital';
+        break;
+      case 2:
+        $place = 'Interior';
+        break;
+      case 3:
+        $place = 'Outros';
+        break;
+      default:
+        $place = 'Indefinido';
+        break;
+    }
+
+    return $place;
   }
 }
