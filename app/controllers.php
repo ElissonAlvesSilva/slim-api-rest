@@ -6,3 +6,7 @@ $container['SindicalizadosController'] = function ($container) {
 $container['ClasseController'] = function ($container) {
   return App\Controllers\ClassesController($container);
 };
+
+$container['ReportController'] = function ($container) {
+  return App\Controllers\ReportController($container);
+};

@@ -47,7 +47,7 @@ class SindicalizadosController extends BaseController
   {
     $this->setParams($request, $response, $args);
     $input = $this->getInput();
-    $duplicate = Sindicalizado::where('Email', $input['Email'])->first();
+    $duplicate = Sindicalizado::where('CPF', $input['CPF'])->first();
 
     if (!$duplicate) {
       if($request->getAttribute('has_errors')) {
@@ -134,30 +134,6 @@ class SindicalizadosController extends BaseController
     }
     $file->moveTo($directory . DIRECTORY_SEPARATOR . $filename);
     return $filename;
-  }
-
-  private function makeCategory($input)
-  {
-    $category = '';
-    switch ($input['Categoria']) {
-      case 1:
-        $category = 'Servidor';
-        break;
-      case 2:
-        $category = 'Serventuário';
-        break;
-      case 3:
-        $category = 'Magistrado';
-        break;
-      case 5:
-        $category = 'Extra Judicial';
-        break;
-      default:
-        $category = 'Outros';
-        break;
-    }
-
-    return $category;
   }
 
   private function makeClass($input) {

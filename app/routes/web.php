@@ -24,4 +24,17 @@ $app->group('/siscad/v1', function () use ($app, $namespace) {
     $app->delete('/[{idClasse}]', $namespace.'\ClassesController:delete');
   });
 
+  $app->group('/report', function () use ($app, $namespace) {
+
+    $app->get('/[{idSindicalizado}]', $namespace. '\ReportController:getById');
+    $app->post('/matricula', $namespace. '\ReportController:getByMatricula');
+    $app->post('/classe', $namespace. '\ReportController:getByClass');
+    $app->post('/category', $namespace. '\ReportController:getByCategory');
+    $app->post('/tjam', $namespace. '\ReportController:getByStatusTJAM');
+    $app->post('/sintjam', $namespace. '\ReportController:getByStatusSintjam');
+    $app->post('/forma_pagamento', $namespace. '\ReportController:getByPaymentType');
+    $app->get('', $namespace. '\ReportController:getAll');
+
+  });
+
 });

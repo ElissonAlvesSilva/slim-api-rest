@@ -39,4 +39,59 @@ class Helpers
 
     return $place;
   }
+
+  public function getCategory($input)
+  {
+    $category = '';
+    switch ($input['Categoria']) {
+      case 1:
+        $category = 'Servidor';
+        break;
+      case 2:
+        $category = 'Serventuário';
+        break;
+      case 3:
+        $category = 'Magistrado';
+        break;
+      case 5:
+        $category = 'Extra Judicial';
+        break;
+      default:
+        $category = 'Outros';
+        break;
+    }
+
+    return $category;
+  }
+
+  public function getStatusTJAM($input) {
+    $payment = '';
+    switch ($input['Status']) {
+      case 1:
+        $payment = 'Ativo';
+        break;
+      case 2:
+        $payment = 'Aposentado';
+        break;
+      case 3:
+        $payment = 'Pensionista';
+        break;
+    }
+
+    return $payment;
+  }
+
+  public function getStatusSINTJAM($input) {
+    $payment = '';
+    switch ($input['Status_Sint']) {
+      case 1:
+        $payment = 'Ativo';
+        break;
+      case 2:
+        $payment = 'Inativo';
+        break;
+    }
+
+    return $payment;
+  }
 }
