@@ -1,5 +1,7 @@
 <?php declare(strict_types=1);
 
+use App\Middleware\AuthMiddleware;
+
 $namespace = 'App\Controllers';
 
 $app->group('/siscad/v1', function () use ($app, $namespace) {
@@ -37,4 +39,4 @@ $app->group('/siscad/v1', function () use ($app, $namespace) {
 
   });
 
-});
+})->add(new AuthMiddleware($container));
