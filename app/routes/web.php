@@ -35,6 +35,7 @@ $app->group('/siscad/v1', function () use ($app, $namespace) {
     $app->post('/tjam', $namespace. '\ReportController:getByStatusTJAM');
     $app->post('/sintjam', $namespace. '\ReportController:getByStatusSintjam');
     $app->post('/forma_pagamento', $namespace. '\ReportController:getByPaymentType');
+    $app->post('/local', $namespace. '\ReportController:getByLocal');
     $app->get('', $namespace. '\ReportController:getAll');
 
   });

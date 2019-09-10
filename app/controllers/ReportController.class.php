@@ -22,7 +22,7 @@ class ReportController extends BaseController
       $sindicalizado = $this->populateData($sindicalizado);
       return $this->jsonResponse($sindicalizado, http_response_code());
     } catch(\Exception $e) {
-      return $this->jsonResponse($e, 400);
+      return $this->jsonResponse($e->getMessage(), 400);
     }
   }
   public function getByMatricula($request, $response, $args) {
@@ -39,7 +39,7 @@ class ReportController extends BaseController
       }
       return $this->jsonResponse($sindicalizados, http_response_code());
     } catch(\Exception $e) {
-      return $this->jsonResponse($e, 400);
+      return $this->jsonResponse($e->getMessage(), 400);
     }
   }
 
@@ -56,7 +56,7 @@ class ReportController extends BaseController
       }
       return $this->jsonResponse($sindicalizados, http_response_code());
     } catch(\Exception $e) {
-      return $this->jsonResponse($e, 400);
+      return $this->jsonResponse($e->getMessage(), 400);
     }
   }
 
@@ -73,7 +73,7 @@ class ReportController extends BaseController
       }
       return $this->jsonResponse($sindicalizados, http_response_code());
     } catch(\Exception $e) {
-      return $this->jsonResponse($e, 400);
+      return $this->jsonResponse($e->getMessage(), 400);
     }
   }
 
@@ -90,7 +90,7 @@ class ReportController extends BaseController
       }
       return $this->jsonResponse($sindicalizados, http_response_code());
     } catch(\Exception $e) {
-      return $this->jsonResponse($e, 400);
+      return $this->jsonResponse($e->getMessage(), 400);
     }
   }
 
@@ -107,7 +107,7 @@ class ReportController extends BaseController
       }
       return $this->jsonResponse($sindicalizados, http_response_code());
     } catch(\Exception $e) {
-      return $this->jsonResponse($e, 400);
+      return $this->jsonResponse($e->getMessage(), 400);
     }
   }
 
@@ -124,7 +124,24 @@ class ReportController extends BaseController
       }
       return $this->jsonResponse($sindicalizados, http_response_code());
     } catch(\Exception $e) {
-      return $this->jsonResponse($e, 400);
+      return $this->jsonResponse($e->getMessage(), 400);
+    }
+  }
+
+  public function getByLocal($request, $response, $args) {
+    $this->setParams($request, $response, $args);
+    $input = $this->getInput();
+    $local = $input['local'];
+    try {
+      $sindicalizados = Sindicalizado::where('Local', $local)
+                                    ->orderBy('Nome', 'ASC')
+                                    ->get();
+      foreach ($sindicalizados as $key => $value) {
+        $sindicalizados[$key] = $this->populateData($value);
+      }
+      return $this->jsonResponse($sindicalizados, http_response_code());
+    } catch(\Exception $e) {
+      return $this->jsonResponse($e->getMessage(), 400);
     }
   }
 
@@ -137,7 +154,7 @@ class ReportController extends BaseController
       }
       return $this->jsonResponse($sindicalizados, http_response_code());
     } catch(\Exception $e) {
-      return $this->jsonResponse($e, 400);
+      return $this->jsonResponse($e->getMessage(), 400);
     }
   }
 

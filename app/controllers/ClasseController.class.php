@@ -28,7 +28,7 @@ class ClassesController extends BaseController
       $class = Classe::where('idClasse', $this->args['idClasse'])->firstOrFail();
       return $this->jsonResponse($class, http_response_code());
     } catch (ModelNotFoundException $e) {
-      return $this->jsonResponse($e, 400);
+      return $this->jsonResponse($e->getMessage(), 400);
     }
   }
 

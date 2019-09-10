@@ -39,7 +39,7 @@ class SindicalizadosController extends BaseController
 
       return $this->jsonResponse($sind, http_response_code());
     } catch (Exception $e) {
-      return $this->jsonResponse($e, 400);
+      return $this->jsonResponse($e->getMessage(), 400);
     }
   }
 
@@ -88,7 +88,7 @@ class SindicalizadosController extends BaseController
       }
       return $this->jsonResponse($input, http_response_code());
     } catch (\Exception $e) {
-      return $this->jsonResponse($e, 400);
+      return $this->jsonResponse($e->getMessage(), 400);
     }
   }
 
@@ -117,7 +117,7 @@ class SindicalizadosController extends BaseController
       return $this->jsonResponse($anexo, 200);
 
     } catch (Exception $e) {
-      return $this->jsonResponse($e, 400);
+      return $this->jsonResponse($e->getMessage(), 400);
     }
 
   }
