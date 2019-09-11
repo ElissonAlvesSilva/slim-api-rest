@@ -15,7 +15,7 @@ class AuthMiddleware extends BaseController
       return $this->jsonResponse('bearer must be pass', 403);
     }
     try {
-      $this->validToken($headers);
+      $this->validToken($headers[0]);
       $response = $next($request, $response);
       return $response;
     } catch (Exception $e) {
@@ -24,19 +24,25 @@ class AuthMiddleware extends BaseController
   }
 
   private function validToken($header) {
-    $curl = curl_init();
-    $header = array(
-      'Accept: application/json',
-      'Authorization: '.$header
+    $curl = curl_init(getenv('ACCOUNTS_API'));
+    $options = array(
+      CURLOPT_RETURNTRANSFER => true,
+      CURLOPT_HTTPHEADER     => array(
+          "Authorization: $header"
+      )
     );
-    curl_setopt($curl, CURLOPT_URL, getenv('ACCOUNTS_API'));
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
-    curl_exec($curl);
+    curl_setopt_array($curl, $options);
+    $http_resp = curl_exec($curl);
     $http_code = curl_getinfo( $curl, CURLINFO_HTTP_CODE );
     curl_close($curl);
     if($http_code > 300) {
-      throw new Exception('unathorized', 403);
+      throw new Exception(
+        json_encode(
+          [
+            'message'=>'unauthorized',
+            'stack' => $http_resp
+          ]
+        ), 403);
     }
   }
 }
