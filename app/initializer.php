@@ -1,4 +1,5 @@
 <?php
+$settings = require 'config/settings.php';
 
 $app = new \Slim\App($settings);
 $container = $app->getContainer();
