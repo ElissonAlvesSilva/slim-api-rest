@@ -1,5 +1,6 @@
 <?php
-$settings = require 'config/settings.php';
+// uncomment in production
+// $settings = require 'config/settings.php';
 
 $app = new \Slim\App($settings);
 $container = $app->getContainer();

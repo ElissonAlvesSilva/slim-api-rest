@@ -2,6 +2,9 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 
+// comment in production
+$settings = require 'config/settings.php';
+
 $baseDir = __DIR__ . '/../';
 $envFile = $baseDir . '.env';
 if (file_exists($envFile)) {
