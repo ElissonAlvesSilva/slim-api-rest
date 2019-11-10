@@ -25,7 +25,7 @@ class SindicalizadosController extends BaseController
   public function getAll($request, $response)
   {
     $all =  Sindicalizado::all();
-    return $response->getBody()->write($all->toJson());
+    return $response->withJson($all, 200);
   }
 
   public function getById($request, $response, array $args)
